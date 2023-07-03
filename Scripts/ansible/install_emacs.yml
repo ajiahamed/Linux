@@ -1,0 +1,24 @@
+---
+
+- hosts: rpi
+  become: true
+  tasks:
+
+  - name: install apache, php for Debian server
+    apt:
+      name: 
+        - apache2
+        - libapache2-mod-php
+      state: latest
+      update_cache: yes
+    when: ansible_distribution == "Debian"  
+  
+  - name: install apache, php for CentOS server
+    dnf:
+      name:
+        - httpd
+        - php
+      state: latest
+      update_cache: yes
+    when: ansible_distribution == "CentOS"
+

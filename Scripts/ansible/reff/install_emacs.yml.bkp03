@@ -1,0 +1,24 @@
+---
+
+- hosts: rpi
+  become: true
+  tasks:
+
+  - name: install emacs, vlc package
+    apt:
+      name: 
+        - emacs
+        - vlc  
+      state: latest
+      update_cache: yes
+    when: ansible_distribution == ["Debian", "Ubuntu"]   
+
+
+  - name: install emacs package
+    dnf:
+      name: 
+        - emacs
+        - vlc  
+      state: latest
+      update_cache: yes
+    when: ansible_distribution == "CentOS"

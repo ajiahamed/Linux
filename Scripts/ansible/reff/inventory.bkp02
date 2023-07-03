@@ -1,0 +1,6 @@
+[rpi]
+rpiz01.local ansible_user=pi apache_package=apache2 php_package=libapache2-mod-php
+rpi3srv01.local ansible_user=pi apache_package=apache2 php_package=libapache2-mod-php
+
+[centos]
+nntsrv01.local ansible_user=ansible apache_package=httpd php_package=php

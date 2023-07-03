@@ -1,0 +1,12 @@
+[rpi]
+rpiz01.local ansible_user=pi
+rpi3srv01.local ansible_user=pi
+
+[db_servers]
+nntsrv01.local ansible_user=ansible
+
+[file_servers]
+192.168.1.120
+
+[workstations]
+192.168.1.121

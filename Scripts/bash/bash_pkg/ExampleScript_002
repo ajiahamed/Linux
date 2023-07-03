@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+#main01.sh
+SSRC=$(readlink -f "$0")
+echo $SSRC
+PWDS=$(dirname "$SSRC")
+echo $PWDS
+MDS=$(date +%Y%m%d)
+echo $MDS
+CDTS=$(date +%Y%m%d-%H%M%S)
+echo $CDTS
+mkdir -p $PWDS/logs
+mkdir -p $PWDS/logs/$MDS
+
+#system status function
+systat(){
+ping -c 1 google.com &> /dev/null && echo -e '\E[31m'"Internet"'\E[0m'": Connected" || echo -e "Internet: "'\E[31m'"Disconnected"'\E[0m'
+}
+
+systat
+
+***************************************************************************************************************************************************
+
+#!/usr/bin/env bash
+#bkpwt.sh
+##Source Dir
+SSRC=$(readlink -f "$0")
+PWD=$(dirname "$SSRC")
+echo $SSRC
+echo $PWD
+source "$PWD/main.sh"
+
+mkdir -p $PWD/logs
+mkdir -p  $PWD/logs/$MD
+
+echo "Testing ......"
+echo " "
+
+echo " "
+#clear
+echo "The log file "sys$CDT.log" is present in :" $PWD/logs/$MD
+sysinfo > $PWD/logs/$MD/sys$CDT.log
+echo " "
+
+#while read LINE
+ #do echo "$LINE" | grep "up" | cut -f2 -d" "
+#done < $PWD/logs/$MD/status$CDT.log > $PWD/logs/$MD/newR.log
+
+echo "File created and present at"$PWD/logs/$MD
+
+end_

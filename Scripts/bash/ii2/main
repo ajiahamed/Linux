@@ -1,0 +1,76 @@
+#!/usr/bin/env bash
+#Camera Up or down
+#Variable
+SSRC=$(readlink -f "$0")
+SPWD=$(dirname "$SSRC")
+#PWD=$(pwd)
+#Clear Screen
+#clear
+CDT=$(date +%Y%m%d-%H%M%S)
+#System utlization
+sysstat(){
+ps -eo pid,ppid,cmd,%mem,%cpu --sort=-%mem | head -5
+}
+
+#System information
+	sysinfo(){
+	#Create temp dir
+	mkdir $SPWD/tmp
+	#Define Variable tecreset
+	tecreset=$(tput sgr0)
+	#Check Kernel Release
+	kernelrelease=$(uname -r)
+	echo -e '\E[31m'"Kernel Release :" $tecreset $kernelrelease
+	#Check Hostname
+	echo -e '\E[31m'"Hostname :" $tecreset $HOSTNAME
+	#Check IP internal
+	internalip=$(hostname -I)
+	echo -e '\E[31m'"The current IP is :" $tecreset $internalip
+	#Checke Logged in Users
+	who>$PWD/tmp/who
+	echo -e '\E[31m'"Logged in Users :" $tecreset && cat $PWD/tmp/who
+	#Check RAM and SWAP Usages
+	free -h | grep -v + > $PWD/tmp/ramcache
+	echo -e '\E[31m'"Ram Usages :" $tecreset
+	cat $PWD/tmp/ramcache | grep -v "Swap"
+	echo -e '\E[31m'"Swap Usage :" $tecreset
+	cat $PWD/tmp/ramcache | grep -v "Mem"
+	#Check Disk Usages
+	#df -h | grep 'Filesystem\|/dev/sda*' > $PWD/tmp/diskusage
+	df -h > $PWD/tmp/diskusage
+	echo -e '\E[31m'"Disk Usages :" $tecreset
+	cat $PWD/tmp/diskusage
+	#Check Load Averagr
+	loadaverage=$(top -n 1 -b | grep "load average:" | awk '{print $10 $11 $12}')
+	echo -e '\E[31m'"Load Average :" $tecreset $loadaverage
+	#Check System Uptime
+	sysuptime=$(uptime | awk '{print $3,$4}' | cut -f1 -d,)
+	echo -e '\E[31m'"Syatem Uptime Days/(HH:MM) :"'\E[0m' $tecreset $sysuptime
+	#Remove temporary files
+	rm $PWD/tmp/*
+}
+
+report_cam(){
+
+	cat $PWD/ip_list | while read output
+    	do
+        	ping -c 1 "$output" > /dev/null
+        	if [ $? -eq 0 ]; then
+            	echo -e '\E[31m'"cam $output is up"
+        	else
+            	echo -e '\E[31m'"cam $output is down"
+        	fi
+    	done
+}
+
+
+
+end_(){
+echo -e '\E[33m'"
+############################################################################
+##                                                                        ##
+##                      Done .....!                                       ##
+##                                                                        ##
+############################################################################
+"'\E[0m'
+}

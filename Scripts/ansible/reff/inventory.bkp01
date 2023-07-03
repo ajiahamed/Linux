@@ -1,0 +1,3 @@
+[rpi]
+rpiz01.local ansible_user=pi
+rpi3srv01.local ansible_user=pi

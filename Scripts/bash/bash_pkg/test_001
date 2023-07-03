@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+SSRC=$(readlink -f "$0")
+PWD=$(dirname "$SSRC")
+source "$PWD/Main.sh"
+mkdir -p $PWD/logs
+mkdir -p  $PWD/logs/$MD
+#line=$(cat test.txt)
+#words=$(IFS= ; set -- $line; printf "%s\n" "$@")
+line=$(cat $1)
+echo $line | sed 's/\\n/ /g' | tr " " \\n
+#echo "$words"

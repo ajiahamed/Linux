@@ -1,0 +1,48 @@
+function __git_prompt () {
+   local status prompt;
+
+   if status=$(git status 2>&1); then
+      prompt="$(git symbolic-ref --quiet --short HEAD || git rev-parse --short HEAD)";
+
+      if [[ "$status" == *nothing\ to\ commit* ]]; then
+         if ! git rev-parse --quiet --verify stash > /dev/null; then
+            # Working tree clean and no stashes; Highlight branch in blue
+            prompt=$'\033[38;5;63;1m'"$prompt"$'\033[0m';
+         else
+            # Working tree clean but stashes exist; Highlight branch in cyan
+            prompt=$'\033[38;5;14;1m'"$prompt"$'\033[0m';
+         fi;
+      else
+         # Working tree is dirty; Highlight branch in red
+         prompt=$'\033[38;5;9;1m'"$prompt"$'\033[0m';
+      fi;
+      prompt=$' \033[38;5;15;1mon\033[0m '"$prompt";
+   fi;
+   echo "$prompt";
+}
+
+if [ "$(whoami)" != "root" ]; then
+   # non-root user; Highlight user in orange
+   PS1=$'\n\033[38;5;202;1m\u\033[0m';
+else
+   # root user; Highlight user in red
+   PS1=$'\n\033[38;5;9;1m\u\033[0m';
+fi;
+
+if [ ! -v SSH_TTY ]; then
+   # User Logs in without SSH; Highlight hostname in yellow
+   PS1+=$'@\033[38;5;226;1m\H\033[0m ';
+else
+   # User logs in with SSH; Highlight hostname in red
+   PS1+=$'@\033[38;5;9;1m\H\033[0m ';
+fi;
+
+PS1+='\033[38;5;15;1m\033[0m \033[38;5;63;1m\w\033[0m$(__git_prompt)\n\[\033[38;5;15;1m\]$\[\033[0m\] ';
+
+
+## Prompt ##
+#PROMPT_DIRTRIM=2
+#PS1='\[\e[0;32m\]\w\[\e[0m\] \[\e[0;97m\]\$\[\e[0m\] '
+
+#Alias
+alias ll='ls -lFh'

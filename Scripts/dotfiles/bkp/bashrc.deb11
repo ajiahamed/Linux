@@ -1,0 +1,47 @@
+GRAY="\e[2;37m"
+GREEN="\e[0;32m"
+PURPLE="\e[1;35m"
+BLUE="\[\e[34m\]"
+COLOR_NONE="\e[0m"
+
+# Detect whether the current directory is a git repository.
+function is_git_repository() {
+  git branch > /dev/null 2>&1
+}
+
+function set_git_branch () {
+    # Note that for new repo without commit, git rev-parse --abbrev-ref HEAD
+    # will error out.
+    if git rev-parse --abbrev-ref HEAD > /dev/null 2>&1; then
+        BRANCH=$(git rev-parse --abbrev-ref HEAD)
+    else
+        BRANCH="bare repo!"
+    fi
+}
+
+function set_bash_prompt () {
+
+    if is_git_repository; then
+        set_git_branch
+    else
+        BRANCH=''
+    fi
+
+    PS1=""
+    PS1+="${BLUE}╭─${COLOT_NONE}"
+    # set up user and host
+    PS1+="${GRAY}\u@\h${COLOR_NONE} "
+    # set up working directory
+    PS1+="${GREEN}\w${COLOR_NONE} "
+    # set up git branch
+    PS1+="${GRAY}${BRANCH}${COLOR_NONE}\n"
+    # set up prompt character
+    PS1+="${BLUE}╰${COLOR_NONE}"
+    PS1+="${PURPLE}${COLOR_NONE} "
+}
+
+export PROMPT_COMMAND=set_bash_prompt
+
+export LS_OPTIONS='--color=auto'
+eval "$(dircolors -b)"
+alias ls='ls $LS_OPTIONS'

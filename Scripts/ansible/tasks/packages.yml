@@ -1,0 +1,7 @@
+- name: Install htop
+  apt:
+    name:
+      - htop
+      - git
+      - tmux
+      - vim   
