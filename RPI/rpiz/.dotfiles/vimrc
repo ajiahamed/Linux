@@ -1,0 +1,49 @@
+set nocompatible
+filetype on
+filetype plugin on
+filetype indent on
+
+syntax on
+set number
+set ruler
+set cursorline
+set cursorcolumn
+set showmode
+set title
+
+set visualbell
+set noerrorbells
+
+colorscheme molokai                                                                         
+
+set t_Co=256
+set statusline=
+
+"set statusline+=\ %F\ %M\ %Y\ %R
+"set statusline+=%=
+"set statusline+=\ ascii:\ %b\ hex:\ 0x%B\ row:\ %l\ col:\ %c\ percent:\ %p%%
+"set laststatus=2
+
+
+"highlight User1 guibg=Black guifg=DarkYellow
+"highlight mid guibg=DarkRed guifg=Yellow
+"set statusline=%1*\ %n:\ %f\ %y\ %=%6v%6l\%6L\ %*
+"autocmd InsertChange * if (&modified) | set statusline=%1*\ %n:\ %f\ %y\ %#mid#%m%=%1*%6v%6l\%6L\ %* | endif
+"autocmd BufWrite * set statusline=%1*\ %n:\ %f\ %y\ %=%6v%6l\%6L\ %*
+
+
+set laststatus=2
+highlight User1 guibg=Black guifg=DarkYellow
+highlight mid guibg=DarkRed guifg=Yellow
+
+let s:default = '%1* %n: %f %y %=%6v%6l%6L %*'
+let s:changed =  '%1* %n: %f %y %#mid#%m%=%1*%6v%6l%6L %*'
+
+fun IsModified()
+    if &modified
+        return s:changed
+    endif
+    return s:default
+ endfun
+ autocmd BufEnter * set statusline=%!IsModified()
+ autocmd BufLeave * let &l:statusline = IsModified()

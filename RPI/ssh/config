@@ -1,0 +1,7 @@
+Host rpiz
+  Hostname rpiz01.domain.name
+  User pi
+
+Host rpi3
+  Hostname rpi3srv01.domain.name
+  User pi
