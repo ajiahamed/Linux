@@ -21,15 +21,15 @@ shopt -s checkwinsize
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
 
-GRAY="\e[2;37m"
-GREEN="\e[0;32m"
-YELLOW="\e[0;33m"
-PURPLE="\e[1;35m"
-BLUE="\e[1;34m"
-DBLUE="\e[1;34m"
-CYAN="\e[2;36m"
-DRED="\e[01;38;5;52m"
-COLOR_NONE="\e[0m"
+GRAY="\[\e[2;37m\]"
+GREEN="\[\e[0;32m\]"
+YELLOW="\[\e[0;33m\]"
+PURPLE="\[\e[1;35m\]"
+BLUE="\[\e[1;34m\]"
+DBLUE="\[\e[1;34m\]"
+CYAN="\[\e[2;36m\]"
+DRED="\[\e[01;38;5;52m\]"
+COLOR_NONE="\[\e[0m\]"
 
 
 # Detect whether the current directory is a git repository.
