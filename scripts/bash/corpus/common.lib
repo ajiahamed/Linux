@@ -1,0 +1,42 @@
+#This is the library for common functions, variables and other.
+#
+
+# Extended Colors
+Orange='\[\e[38;5;208m\]'
+Magenta='\[\e[38;5;200m\]'
+Maroon='\[\e[38;5;88m\]'
+Gold='\[\e[38;5;220m\]'
+Teal='\[\e[38;5;51m\]'
+Lime='\[\e[38;5;118m\]'
+Pink='\[\e[38;5;219m\]'
+Olive='\[\e[38;5;142m\]'
+Brown='\[\e[38;5;94m\]'
+Navy='\[\e[38;5;17m\]'
+Turquoise='\[\e[38;5;45m\]'
+Lavender='\[\e[38;5;183m\]'
+Plum='\[\e[38;5;96m\]'
+Crimson='\[\e[38;5;160m\]'
+Indigo='\[\e[38;5;54m\]'
+Silver='\[\e[38;5;250m\]'
+Black='\[\e[38;5;16m\]'
+
+#Variables
+filet=`date '+%Y-%m-%d_%H:%M:%S'`
+logdir="logs"
+cddir="$PWD"
+
+##########################################
+bkpsrv01=172.16.16.101
+           
+##########################################
+#watch dir local#
+
+watchdir01=~/scripts/WDArch/
+
+##########################################
+#Back up server location#
+
+bkpsrvdir01=~/scripts/arch/
+
+
+
