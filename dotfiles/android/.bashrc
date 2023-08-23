@@ -42,7 +42,7 @@ function set_bash_prompt () {
     PS1=""
     PS1+="${CYAN}╭─${COLOT_NONE}"
     # set up user and host
-    PS1+="${DBLUE}\u@\h${COLOR_NONE} "
+    #PS1+="${DBLUE}\u@\h${COLOR_NONE} "
     # set up working directory
     PS1+="${GREEN}\w${COLOR_NONE} "
     # set up git branch
