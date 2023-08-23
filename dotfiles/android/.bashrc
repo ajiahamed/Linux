@@ -48,9 +48,9 @@ function set_bash_prompt () {
     # set up git branch
     PS1+="${YELLOW}${BRANCH}${COLOR_NONE}\n"
     # set up prompt character
-    PS1+="${CYAN}╰${COLOR_NONE}"
+    PS1+="${CYAN}╰${COLOR_NONE} "
 #    PS1+="${FG_Yellow}${BG_Maroon}${COLOR_NONE} "
-    PS1+="${GREEN}  ${COLOR_NONE} " 
+    PS1+="${GREEN} ${COLOR_NONE} " 
 }
 
 export PROMPT_COMMAND=set_bash_prompt
