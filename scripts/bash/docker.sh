@@ -36,6 +36,8 @@ update (){
         sudo apt autoclean -y &> /dev/null && sudo apt autoremove -y &> /dev/null
         echo "done."
         echo " "
+	echo "Checking if reboot is required or not."
+	[ -f /var/run/reboot-required ] && sudo reboot -f
         clear
 }
 
@@ -46,7 +48,12 @@ sudo_installed () {
          echo -e $green "Sudo is installed" $eoc
     else
          echo -e $red "Sudo is not installed" $eoc
-         return 0
+	 read -p "Would you like to install it now? (y/n): " response01
+	 if [ "$response01" == "y" ]; then
+		 echo "Please log in as root user and install sudo !!!..."
+		 sleep 5;
+         fi
+         exit 1
     fi
 }
 # Verify if the current user belongs to groups 'sudo' or 'root'.
@@ -57,15 +64,41 @@ if [[ $current_user_groups == *'root'* ]] ||
        echo -e $green "User has sudo previlage" $eoc
 else
        echo -e $red "User has no sudo previlage" $eoc
-       return 0
+       exit 1
 fi
 }
 
+
 # Execution of the command starts here
-update
 
 echo -e $nline   
 sudo_enabled
 echo -e $nline
 sudo_installed
 echo -e $nline
+
+#Installation of Docker
+update
+#Installing prerequist before installing docker
+echo "Installing Prerequist ....."
+sudo apt install lsb-release gnupg2 apt-transport-https ca-certificates curl software-properties-common -y
+echo "Done..."
+#clear
+#Import the GPG key for docker repositories
+curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/debian.gpg
+echo "Done ...."
+#Add the docker stable repository 
+sudo add-apt-repository "deb [arch=$(dpkg --print-architecture)] https://download.docker.com/linux/debian $(lsb_release -cs) stable"
+#Update the repository 
+sudo apt update
+#Install docker-ce
+sudo apt install docker-ce docker-ce-cli containerd.io docker-compose-plugin
+#add the current user to the docker group
+sudo usermod -aG docker $USER
+#verify 
+newgrp docker
+#To ensure that the service is running and enabled
+sudo systemctl start docker && sudo systemctl enable docker
+
+echo " "
+echo "Docker CE is installed and services running...!"
