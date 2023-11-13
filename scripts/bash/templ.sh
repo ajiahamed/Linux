@@ -78,7 +78,7 @@ chmod +x $title
 _select_editor(){
 
     # Select between Vim, Emacs, or Nano.
-    printf "%s\n%s\n%s\n%s\n%s\n\n" "Select an editor." "1 for Vi." "2 for nVim." "3 for Nano." "4 for Emacs."
+    printf "%s\n%s\n%s\n%s\n%s\n\n" "Select an editor." "1 for Vi." "2 for Vim." "3 for Nano." "4 for Emacs."
     read -r editor
 
     # Open the file with the cursor on the twelth line.
@@ -87,11 +87,9 @@ _select_editor(){
             ;;
         2) vim +12 $title
             ;;
-        3) nvim +12 $title
+        3) nano +12 $title
             ;;
-        4) nano +12 $title
-            ;;
-        5) emacs +12 $title
+        4) emacs +12 $title
             ;;
         *) /usr/bin/clear
             ;;
