@@ -83,10 +83,12 @@ update
 echo "Installing Prerequist ....."
 sudo apt install lsb-release gnupg2 apt-transport-https ca-certificates curl software-properties-common -y
 echo "Done..."
+echo " "
 #clear
 #Import the GPG key for docker repositories
 curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/debian.gpg
 echo "Done ...."
+echo " "
 #Add the docker stable repository 
 sudo add-apt-repository "deb [arch=$(dpkg --print-architecture)] https://download.docker.com/linux/debian $(lsb_release -cs) stable"
 #Update the repository 
