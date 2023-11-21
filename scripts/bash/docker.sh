@@ -94,7 +94,7 @@ sudo add-apt-repository "deb [arch=$(dpkg --print-architecture)] https://downloa
 #Update the repository 
 sudo apt update
 #Install docker-ce
-sudo apt install docker-ce docker-ce-cli containerd.io docker-compose-plugin
+sudo apt install docker-ce docker-ce-cli containerd.io docker-compose-plugin -y
 #add the current user to the docker group
 sudo usermod -aG docker $USER
 #verify 
