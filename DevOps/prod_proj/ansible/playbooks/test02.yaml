@@ -1,0 +1,6 @@
+---
+- hosts: deball
+  gather_facts: no
+  tasks:
+    - name: check Ping connectivity
+      ping:

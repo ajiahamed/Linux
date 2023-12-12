@@ -1,0 +1,48 @@
+---
+- name: Install Nginx
+  hosts: workers
+  become: yes
+
+  tasks:
+    - name: Install Nginx 
+      apt:
+       name: nginx
+       state: latest
+       update_cache: yes
+      #upgrade: dist
+       force_apt_get: yes
+     
+    - name: Remove default nginx config
+      file:
+       path: /etc/nginx/sites-enabled/default
+       state: absent  
+
+    - name: Create the website directory
+      file:
+       path: /var/www/site01/
+       state: directory 
+    
+    - name: Add nginx config file 
+      copy:
+       src: ~/configfiles/site01
+       dest: /etc/nginx/sites-available/site01
+       owner: root
+       group: root
+
+    - name: Enable website config
+      file:
+       src: /etc/nginx/sites-available/site01
+       dest: /etc/nginx/sites-enabled/site01
+       state: link
+        
+    - name: Copy index file to the site dir
+      copy:
+       src: ~/configfiles/index.html
+       dest: /var/www/site01/index.html
+       owner: root
+       group: root
+
+    - name: Start Service
+      systemd:
+       name: nginx
+       state: restarted    

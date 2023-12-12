@@ -1,0 +1,14 @@
+- name: Remove Nginx
+  hosts: workers
+  become: yes
+  tasks:
+   - name: stop nginx
+     systemd:
+       name: nginx
+       state: stopped
+   - name: uninstall nginx
+     apt:
+       name: nginx
+       state: absent
+       purge: true
+       autoremove: true

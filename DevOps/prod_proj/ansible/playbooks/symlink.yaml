@@ -1,0 +1,8 @@
+- hosts: workers
+  become: yes
+  tasks:
+    - name: Create softlink for the website
+      file: 
+        src: /etc/nginx/sites-available/site01.conf
+        dest: /etc/nginx/sites-enabled/site01.conf
+        state: link

@@ -1,7 +1,8 @@
 #! /usr/bin/env python
 
 from os import system
-from urllib2 import urlopen
+#from urllib2 import urlopen
+import urllib.request
 from socket import socket
 from sys import argv
 from time import asctime
@@ -18,7 +19,8 @@ def tcp_test(server_info):
 
 def http_test(server_info):
     try:
-        data = urlopen(server_info).read()
+        #data = urlopen(server_info).read()
+        data = urllib.request.urlopen(server_info).read()
         return True
     except:
         return False

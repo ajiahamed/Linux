@@ -1,0 +1,17 @@
+- name: Install Java 11
+  hosts: controller01
+  become: yes
+  tasks:
+    - name: Run apt update
+      apt: 
+       update_cache: yes
+    - name: install Java
+      apt: 
+       name: openjdk-11-jdk
+       state: present
+    - name: capture java version
+      shell: java -version
+      register: jversion
+    - name: Print java version
+      debug:
+        var: jversion 

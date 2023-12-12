@@ -1,0 +1,12 @@
+server {
+	listen 81;
+	listen [::]:81;
+
+	server_name example.debian.com;
+
+	root /var/www/site01;
+	index index.html;
+	location /{
+			try_files $uri $uri/ =404;
+        }
+}

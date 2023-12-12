@@ -1,0 +1,8 @@
+- hosts: deball
+  become: yes
+  tasks:
+    - name: Update cache and install python3-pip
+      apt:
+        name: python3-pip 
+        update_cache: yes
+        state: present

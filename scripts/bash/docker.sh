@@ -56,6 +56,7 @@ sudo_installed () {
          exit 1
     fi
 }
+
 # Verify if the current user belongs to groups 'sudo' or 'root'.
 sudo_enabled () {
 local current_user_groups=$(groups $current_username)
@@ -68,37 +69,43 @@ else
 fi
 }
 
-
 # Execution of the command starts here
-
-echo -e $nline   
-sudo_enabled
-echo -e $nline
-sudo_installed
-echo -e $nline
+#echo -e $nline   
+#sudo_enabled
+#echo -e $nline
+#sudo_installed
+#echo -e $nline
 
 #Installation of Docker
 update
+
 #Installing prerequist before installing docker
 echo "Installing Prerequist ....."
 sudo apt install lsb-release gnupg2 apt-transport-https ca-certificates curl software-properties-common -y
 echo "Done..."
 echo " "
 #clear
+
 #Import the GPG key for docker repositories
 curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/debian.gpg
 echo "Done ...."
 echo " "
+
 #Add the docker stable repository 
 sudo add-apt-repository "deb [arch=$(dpkg --print-architecture)] https://download.docker.com/linux/debian $(lsb_release -cs) stable"
+
 #Update the repository 
 sudo apt update
+
 #Install docker-ce
 sudo apt install docker-ce docker-ce-cli containerd.io docker-compose-plugin -y
+
 #add the current user to the docker group
 sudo usermod -aG docker $USER
+
 #verify 
 newgrp docker
+
 #To ensure that the service is running and enabled
 sudo systemctl start docker && sudo systemctl enable docker
 
